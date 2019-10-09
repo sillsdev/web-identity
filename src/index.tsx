@@ -7,7 +7,9 @@ import { Router } from 'react-router-dom';
 import { setGlobal } from 'reactn';
 import history from './history';
 
-setGlobal({});
+setGlobal({
+  auth0: undefined,
+});
 
 const Root = () => (
   <Router history={history}>
