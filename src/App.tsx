@@ -1,57 +1,25 @@
+// src/App.js
+// See: https://auth0.com/docs/quickstart/spa/react/01-login
 import React from 'react';
-import { useGlobal } from 'reactn';
-import { Route } from 'react-router-dom';
-import createAuth0Client from '@auth0/auth0-spa-js';
-import Next from './components/Next';
+import NavBar from './components/NavBar';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import Profile from './components/Profile';
 
-const App: React.FC = () => {
-  const [auth0, setAuth0] = useGlobal('auth0');
-
-  const auth0Login = () => {
-    if (!auth0) return;
-    auth0
-      .loginWithRedirect({ redirect_uri: 'http://localhost:3000/callback' })
-      .then(() => {
-        //logged in. you can get the user profile like this:
-        auth0.getUser().then((user: any) => {
-          console.log(user);
-        });
-      });
-  };
-
-  React.useEffect(() => {
-    const getAuth0 = async () => {
-      if (process.env.REACT_APP_DOMAIN && process.env.REACT_APP_CLIENTID) {
-        const auth0 = await createAuth0Client({
-          domain: process.env.REACT_APP_DOMAIN,
-          client_id: process.env.REACT_APP_CLIENTID,
-        });
-        setAuth0(auth0);
-      }
-    };
-    getAuth0();
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, []);
-
+function App() {
   return (
-    <>
-      <Route
-        path="/"
-        exact={true}
-        render={props => {
-          auth0Login();
-          return <></>;
-        }}
-      />
-      <Route
-        path="/next"
-        exact={true}
-        render={props => {
-          return <Next {...props} />;
-        }}
-      />
-    </>
+    <div className="App">
+      <BrowserRouter>
+        <header>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact />
+          <PrivateRoute path="/profile" component={Profile} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
-};
+}
 
 export default App;
