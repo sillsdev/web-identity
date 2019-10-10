@@ -7,8 +7,8 @@ const app = express();
 
 // Set up Auth0 configuration
 const authConfig = {
-  domain: process.env.REACT_APP_DOMAIN,
-  audience: process.env.REACT_APP_AUDIENCE,
+  domain: 'dev-sillsdev.auth0.com',
+  audience: 'https://transcriber-auth',
 };
 
 // Define middleware that validates incoming bearer tokens
@@ -34,4 +34,12 @@ app.get('/api/external', checkJwt, (req, res) => {
 });
 
 // Start the app
-app.listen(3001, () => console.log('API listening on 3001'));
+app.listen(3001, () =>
+  console.log(
+    'API listening on 3001',
+    'domain',
+    authConfig.domain,
+    'audience',
+    authConfig.audience
+  )
+);

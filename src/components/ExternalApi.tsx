@@ -12,10 +12,6 @@ const ExternalApi = () => {
     try {
       const token = await getTokenSilently();
 
-      // console.log(token, process.env.REACT_APP_PROXY);
-      // const proxy = process.env.REACT_APP_PROXY
-      //   ? process.env.REACT_APP_PROXY
-      //   : '';
       const response = await fetch('/api/external', {
         headers: {
           Authorization: `Bearer ${token}`,
