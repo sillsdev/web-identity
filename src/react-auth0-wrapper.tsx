@@ -31,10 +31,16 @@ export const Auth0Provider = ({
       const isAuthenticated = await auth0FromHook.isAuthenticated();
 
       setIsAuthenticated(isAuthenticated);
-
+      // Check for silent auth if user is not logged in
+      if (!isAuthenticated) {
+        console.log('testing silently when not logged in...');
+        auth0FromHook.getTokenSilently();
+      }
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
         setUser(user);
+        console.log('testing silently...');
+        auth0FromHook.getTokenSilently();
       }
 
       setLoading(false);
