@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "npm-run-all --parallel start server",
-    "server": "node server.js"
+    "server": "node server.js",
+    "deploy":"amplify publish"
   },
   "eslintConfig": {
     "extends": "react-app"
